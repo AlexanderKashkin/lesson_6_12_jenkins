@@ -1,6 +1,6 @@
 import os
 import allure
-from selene import be, have, command
+from selene import be, have, command, by
 from lesson_6_12 import UserStudent
 
 
@@ -30,10 +30,10 @@ class StudentRegistrationForm:
         self.b.element(f'//label[contains(text(), "Sports")]').click()
         self.b.element('#uploadPicture').send_keys(os.path.abspath(user.path_for_picture))
         self.b.element('#currentAddress').should(be.blank).click().type(user.address)
-        self.b.element('#state').perform(command.js.scroll_into_view).click()
+        self.b.element(by.xpath('//div[@id = "state"]//input')).send_keys(user.state).press_tab()
         self.b.element('#react-select-3-input').type(user.state).press_enter()
         self.b.element('#react-select-4-input').type(user.city).press_enter()
-        self.b.element('#submit').click()
+        self.b.element('#submit').perform(command.js.click)
 
     @allure.step('Закрываем модальное окно')
     def close(self):
