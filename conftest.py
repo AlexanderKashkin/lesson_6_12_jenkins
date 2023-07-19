@@ -1,10 +1,12 @@
 import os
 import pytest
+
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selene import Browser, Config
 from dotenv import load_dotenv
-from lesson_6_12.utils import attach
+
+from utils.attach import add_html, add_logs, add_video, add_screenshot
 
 DEFAULT_BROWSER_VERSION = "100.0"
 
@@ -51,8 +53,8 @@ def setup_browser(request):
 
     yield browser
 
-    attach.add_html(browser)
-    attach.add_screenshot(browser)
-    attach.add_logs(browser)
-    attach.add_video(browser)
+    add_html(browser)
+    add_screenshot(browser)
+    add_logs(browser)
+    add_video(browser)
     browser.quit()
